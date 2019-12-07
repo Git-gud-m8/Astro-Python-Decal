@@ -133,19 +133,32 @@ def give_player_feedback(key_pegs):
 
 MAX_ATTEMPTS = 10
 
+numbers_check = check_numbers(code, code_breaker_attempt)
+order_check = check_order(code, code_breaker_attempt)
+key_pegs = get_key_pegs(numbers_check, order_check)
+feedback = give_player_feedback(key_pegs)
+
 def mastermind():
     games = 1
     while games:
         games+=1
+        code = generate_code()
+        code_breaker_attempt = get_code_breaker_attempt()
+        if check_numbers(code, code_breaker_attempt) == False:
+            numbers_check = check_numbers(code, code_breaker_attempt)
+        if check_order(code, code_breaker_attempt) == False:
+            order_check = check_order(code, code_breaker_attempt)
+        key_pegs = get_key_pegs(numbers_check, order_check)
+        feedback = give_player_feedback(key_pegs)
+
     if generate_code() < 10:
         return False
     else:
         return True
-    if 'Red' == 4:
-        return 'win'
-    elif 'Red' != 4:
-        return code
-
+    if '4 Red':
+        return 'Win!'
+    else:
+        return feedback
 
 # In[ ]:
 
